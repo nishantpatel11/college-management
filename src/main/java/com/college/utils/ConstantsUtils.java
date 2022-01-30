@@ -11,6 +11,11 @@ public class ConstantsUtils {
     public final static String SUBJECT ="/subject";
     public final static String LESSON ="/lesson";
     public final static String ALL_LIST ="/list";
+    public final static String ACTIVE ="/active";
+
+    public final static String SUBSCRIBE_COURSE = "/subscribe";
+    public final static String SELECTED_VIDEO = "/selected";
+    public final static String TITLE_VIDEO = "/title";
 
 }
 

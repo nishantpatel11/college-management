@@ -1,16 +1,15 @@
 package com.college.controller;
 
 import com.college.entity.Video;
-import com.college.entity.View;
 import com.college.exception.ResourceNotFoundException;
-import com.college.repo.ViewRepository;
 import com.college.service.VideoService;
 import com.college.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,9 +18,6 @@ public class VideoController {
 
     @Autowired
     private VideoService videoService;
-
-    @Autowired
-    private ViewRepository viewRepository;
 
     @PostMapping("/")
     public Video createVideo(Video video) throws ResourceNotFoundException {
@@ -41,5 +37,28 @@ public class VideoController {
     @GetMapping(ConstantsUtils.ALL_LIST)
     public List<Video> listVideo(){
         return videoService.listVideo();
+    }
+
+    @PutMapping(ConstantsUtils.SELECTED_VIDEO)
+    public List<Video> selectedVideos(List<Video> videos) throws ResourceNotFoundException {
+        return videoService.selectedVideos(videos);
+    }
+
+    @GetMapping(ConstantsUtils.TITLE_VIDEO+"/{title}")
+    public List<Video> findByTitle(@PathVariable("title") String title) throws ResourceNotFoundException {
+        return videoService.findByTitle(title);
+    }
+
+    @GetMapping(ConstantsUtils.TITLE_VIDEO+"/{title}")
+    public List<Video> findAllActiveVideoSelectedLessonAndFilterByVideoAndTagName(@RequestParam Map<String,Object> params) throws ResourceNotFoundException {
+        List<Integer> lessonIds = params.get("lessonIds") != null ? (List<Integer>) params.get("lessonIds"): new ArrayList<Integer>();
+        String title = params.get("title") != null ? (String) params.get("title"):"";
+        String tag = params.get("tag") != null ? (String) params.get("tag"):"";
+        return videoService.findAllActiveVideoSelectedLessonAndFilterByVideoAndTagName(lessonIds,tag,title);
+    }
+
+    @GetMapping(ConstantsUtils.TITLE_VIDEO+"/{videoIds}")
+    public List<Video> findAllSelectedVideoDetails(@PathVariable("videoIds") List<Integer> videoIds) throws ResourceNotFoundException {
+        return videoService.findAllSelectedVideoDetails(videoIds);
     }
 }

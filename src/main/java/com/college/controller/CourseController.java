@@ -40,17 +40,17 @@ public class CourseController {
         return courseService.listCourse();
     }
 
-    @GetMapping("/active/{subjectId}")
+    @GetMapping(ConstantsUtils.ACTIVE +"/{subjectId}")
     public List<Course> findAllActiveCourseOrBySubject(@PathVariable ("subjectId") List<Integer> subjectIds) throws ResourceNotFoundException {
         return courseService.findAllActiveCourseBySubject(subjectIds);
     }
 
-    @GetMapping("/active/{courseIds}")
+    @GetMapping(ConstantsUtils.ACTIVE +"/{courseIds}")
     public List<Course> findSelectedCourseforAllActiveLessons(@PathVariable ("courseIds") List<Integer> courseIds) throws ResourceNotFoundException {
         return courseService.findSelectedCourseforAllActiveLessons(courseIds);
     }
 
-    @PutMapping("/subscribe")
+    @PutMapping(ConstantsUtils.SUBSCRIBE_COURSE)
     public List<Course> subscribeCourse(List<Course> courses) throws ResourceNotFoundException {
         return courseService.subscribeCourse(courses);
     }
