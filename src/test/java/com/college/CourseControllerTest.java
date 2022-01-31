@@ -47,7 +47,7 @@ public class CourseControllerTest extends CollegeManagementApplicationTests {
         Course course = new Course();
         course.setName("Y-Test");
         List<Course> courseList = new ArrayList<>();
-        given(courseController.listCourse()).willReturn(courseList);
+//        given(courseController.listCourse()).willReturn(courseList);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.COURSE + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))
@@ -58,7 +58,7 @@ public class CourseControllerTest extends CollegeManagementApplicationTests {
     public void getArrivalsById() throws Exception {
 
         Optional<Course> course = Optional.of(new Course());
-        given(courseController.getCourse(course.get().getId())).willReturn(course);
+//        given(courseController.getCourse(course.get().getId())).willReturn(course);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.COURSE + ConstantsUtils.ALL_LIST)
                         .contentType(APPLICATION_JSON))

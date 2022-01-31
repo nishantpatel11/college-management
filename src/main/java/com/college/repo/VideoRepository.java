@@ -31,4 +31,9 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
     @Query(value = "SELECT v FROM video v where v.active = true and v.is_selected = true and v.video_id in ?1", nativeQuery = true)
     List<Video> findAllSelectedVideoDetails(List<Integer> videoIds);
 
+    @Transactional
+    @Modifying
+    @Query(value = "Select TOP 1 v.* from (select count(ref_id) as most_views from video vi inner join view v on vi.video_id = v.ref_id where v.type ='VIDEO' group by v.ref_id) viewed inner join Video v on v.video_id = viewed.most_views ", nativeQuery=true)
+    Video findMaxViewsOfVideos();
+
 }

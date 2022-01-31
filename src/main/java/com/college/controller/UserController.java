@@ -1,12 +1,16 @@
 package com.college.controller;
 
 import com.college.entity.User;
+import com.college.exception.ResourceNotFoundException;
 import com.college.service.UserService;
 import com.college.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestControllerAdvice
@@ -17,22 +21,27 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/")
-    public User createUser(User user){
-        return userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user){
+        return new ResponseEntity<User>(userService.createUser(user),HttpStatus.OK);
     }
 
     @PutMapping("/")
-    public User updateUser(User user){
-        return userService.updateUser(user);
+    public ResponseEntity <User> updateUser(@RequestBody User user){
+        return new ResponseEntity <User>(userService.updateUser(user),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUser(@PathVariable ("id") Integer id){
-        return userService.getUser(id);
+    public ResponseEntity<Optional<User>> getUser(@PathVariable ("id") Integer id){
+        return new ResponseEntity<Optional<User>>  (userService.getUser(id), HttpStatus.OK);
     }
 
     @GetMapping(ConstantsUtils.ALL_LIST)
-    public List<User> listUser(){
-        return userService.listUser();
+    public ResponseEntity<List<User>> listUser(){
+        return new ResponseEntity<List<User>>(userService.listUser(),HttpStatus.OK);
+    }
+
+
+    public ResponseEntity<Map<String,Object>> getMostCourseAndVideoView() throws ResourceNotFoundException {
+        return new ResponseEntity<Map<String,Object>>(userService.getMostCourseAndVideoView(), HttpStatus.OK);
     }
 }

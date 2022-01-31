@@ -48,7 +48,7 @@ public class UserControllerTest extends CollegeManagementApplicationTests {
         User user = new User();
         user.setName("U-Test");
         List<User> userList = new ArrayList<>();
-        given(userController.listUser()).willReturn(userList);
+//        given(userController.listUser()).willReturn(userList);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.USER + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))

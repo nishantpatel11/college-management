@@ -28,4 +28,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query(value = "SELECT c FROM lesson l inner join course c on c.lesson_id = l.lesson_id and l.active = true where c.course_id in ?1 and c.is_selected = true", nativeQuery=true)
     List<Course> findSelectedCourseforAllActiveLessons(List<Integer> courseIds);
 
+    @Transactional
+    @Modifying
+    @Query(value = "Select TOP 1 c.* from (select count(ref_id) as most_views from course c inner join view v on c.course_id = v.ref_id where v.type ='COURSE' group by ref_id) viewed inner join course c on c.course_id = viewed.most_views " +
+            "select c.name, max(v.ref_id) from course c inner join view v on c.course_id = v.ref_id where v.type ='COURSE' group by ref_id , c.name", nativeQuery=true)
+    Course findMaxViewsOfCourses();
+
 }

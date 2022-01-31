@@ -4,6 +4,8 @@ import com.college.entity.Lesson;
 import com.college.service.LessonService;
 import com.college.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,22 +19,22 @@ public class LessonController {
     private LessonService lessonService;
 
     @PostMapping("/")
-    public Lesson createLesson(Lesson lesson){
-        return lessonService.createLesson(lesson);
+    public ResponseEntity<Lesson> createLesson(@RequestBody Lesson lesson){
+        return new ResponseEntity<Lesson> (lessonService.createLesson(lesson), HttpStatus.OK);
     }
 
     @PutMapping("/")
-    public Lesson updateLesson(Lesson lesson){
-        return lessonService.updateLesson(lesson);
+    public ResponseEntity<Lesson> updateLesson(@RequestBody Lesson lesson){
+        return new ResponseEntity<Lesson> (lessonService.updateLesson(lesson), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-   public Optional<Lesson> getLesson(@PathVariable ("id") Integer id){
-        return lessonService.getLesson(id);
+   public ResponseEntity<Optional<Lesson>> getLesson(@PathVariable ("id") Integer id){
+        return new ResponseEntity<Optional<Lesson>> (lessonService.getLesson(id), HttpStatus.OK);
     }
 
     @GetMapping(ConstantsUtils.ALL_LIST)
-    public List<Lesson> listLesson(){
-        return lessonService.listLesson();
+    public ResponseEntity<List<Lesson>> listLesson(){
+        return new ResponseEntity<List<Lesson>> (lessonService.listLesson(), HttpStatus.OK);
     }
 }

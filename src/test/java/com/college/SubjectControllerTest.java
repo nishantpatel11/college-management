@@ -47,7 +47,7 @@ public class SubjectControllerTest extends CollegeManagementApplicationTests {
         Subject subject = new Subject();
         subject.setName("Y-Test");
         List<Subject> subjectList = new ArrayList<>();
-        given(subjectController.listSubject()).willReturn(subjectList);
+//        given(subjectController.listSubject()).willReturn(subjectList);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.SUBJECT + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))
@@ -58,7 +58,7 @@ public class SubjectControllerTest extends CollegeManagementApplicationTests {
     public void getArrivalsById() throws Exception {
 
         Optional<Subject> subject = Optional.of(new Subject());
-        given(subjectController.getSubject(subject.get().getId())).willReturn(subject);
+//        given(subjectController.getSubject(subject.get().getId())).willReturn(subject);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.SUBJECT + ConstantsUtils.ALL_LIST)
                         .contentType(APPLICATION_JSON))
