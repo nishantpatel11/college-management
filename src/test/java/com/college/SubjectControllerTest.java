@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -44,10 +46,11 @@ public class SubjectControllerTest extends CollegeManagementApplicationTests {
     @Test
     public void getArrivals() throws Exception {
 
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
         Subject subject = new Subject();
         subject.setName("Y-Test");
         List<Subject> subjectList = new ArrayList<>();
-//        given(subjectController.listSubject()).willReturn(subjectList);
+        given(subjectController.listSubject()).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.SUBJECT + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))
@@ -57,8 +60,9 @@ public class SubjectControllerTest extends CollegeManagementApplicationTests {
     @Test
     public void getArrivalsById() throws Exception {
 
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
         Optional<Subject> subject = Optional.of(new Subject());
-//        given(subjectController.getSubject(subject.get().getId())).willReturn(subject);
+        given(subjectController.getSubject(subject.get().getId())).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.SUBJECT + ConstantsUtils.ALL_LIST)
                         .contentType(APPLICATION_JSON))

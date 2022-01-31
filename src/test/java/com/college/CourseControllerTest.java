@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -47,7 +49,8 @@ public class CourseControllerTest extends CollegeManagementApplicationTests {
         Course course = new Course();
         course.setName("Y-Test");
         List<Course> courseList = new ArrayList<>();
-//        given(courseController.listCourse()).willReturn(courseList);
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
+        given(courseController.listCourse()).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.COURSE + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))
@@ -58,7 +61,9 @@ public class CourseControllerTest extends CollegeManagementApplicationTests {
     public void getArrivalsById() throws Exception {
 
         Optional<Course> course = Optional.of(new Course());
-//        given(courseController.getCourse(course.get().getId())).willReturn(course);
+
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
+        given(courseController.getCourse(course.get().getId())).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.COURSE + ConstantsUtils.ALL_LIST)
                         .contentType(APPLICATION_JSON))

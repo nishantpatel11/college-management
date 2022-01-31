@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -45,10 +47,12 @@ public class UserControllerTest extends CollegeManagementApplicationTests {
     @Test
     public void getArrivals() throws Exception {
 
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
+
         User user = new User();
         user.setName("U-Test");
         List<User> userList = new ArrayList<>();
-//        given(userController.listUser()).willReturn(userList);
+        given(userController.listUser()).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.USER + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))
@@ -58,8 +62,10 @@ public class UserControllerTest extends CollegeManagementApplicationTests {
     @Test
     public void getArrivalsById() throws Exception {
 
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
+
         Optional<User> user = Optional.of(new User());
-        given(userController.getUser(user.get().getUserId())).willReturn(user);
+        given(userController.getUser(user.get().getUserId())).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.USER + ConstantsUtils.ALL_LIST)
                         .contentType(APPLICATION_JSON))

@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -46,10 +48,12 @@ public class TagControllerTest extends CollegeManagementApplicationTests{
     @Test
     public void getArrivals() throws Exception {
 
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
+
         Tag tag = new Tag();
         tag.setName("Y-Test");
         List<Tag> tagList = new ArrayList<>();
-        given(tagController.listTag()).willReturn(tagList);
+        given(tagController.listTag()).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.TAG + ConstantsUtils.ALL_LIST)
                       .contentType(APPLICATION_JSON))
@@ -59,8 +63,10 @@ public class TagControllerTest extends CollegeManagementApplicationTests{
     @Test
     public void getArrivalsById() throws Exception {
 
+        ResponseEntity r = new ResponseEntity(HttpStatus.ACCEPTED);
+
         Optional<Tag> tag = Optional.of(new Tag());
-        given(tagController.getTag(tag.get().getId())).willReturn(tag);
+        given(tagController.getTag(tag.get().getId())).willReturn(r);
 
         mockMvc.perform(get(ConstantsUtils.BASE_URL + ConstantsUtils.TAG + ConstantsUtils.ALL_LIST)
                         .contentType(APPLICATION_JSON))
