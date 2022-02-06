@@ -15,4 +15,5 @@ public interface CourseService {
     List<Course> findAllActiveCourseBySubject(List<Integer> subjectIds) throws ResourceNotFoundException;
     List<Course> subscribeCourse(List<Course> course) throws ResourceNotFoundException;
     List<Course> findSelectedCourseforAllActiveLessons(List<Integer> courseIds) throws ResourceNotFoundException;
+    List<Course> findMaxViewsOfCourses();
 }

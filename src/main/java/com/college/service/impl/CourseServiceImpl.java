@@ -72,4 +72,9 @@ public class CourseServiceImpl implements CourseService {
         throw new ResourceNotFoundException("No resource found for update");
 
     }
+
+    @Override
+    public List<Course> findMaxViewsOfCourses() {
+        return courseRepository.findMaxViewsOfCourses();
+    }
 }

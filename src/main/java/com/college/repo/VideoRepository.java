@@ -33,7 +33,7 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "Select TOP 1 v.* from (select count(ref_id) as most_views from video vi inner join view v on vi.video_id = v.ref_id where v.type ='VIDEO' group by v.ref_id) viewed inner join Video v on v.video_id = viewed.most_views ", nativeQuery=true)
-    Video findMaxViewsOfVideos();
+    @Query(value = "Select v.* from (select count(ref_id) as most_views from video vi inner join view v on vi.video_id = v.ref_id where v.type ='VIDEO' group by v.ref_id) viewed inner join Video v on v.video_id = viewed.most_views ", nativeQuery=true)
+    List<Video> findMaxViewsOfVideos();
 
 }

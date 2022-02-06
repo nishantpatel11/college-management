@@ -3,7 +3,12 @@ package com.college.utils;
 
 public class ConstantsUtils {
 
-    public final static String BASE_URL ="/v1/api";
+    public final static String BASE ="/course";
+    public final static String VERSION ="/v1";
+    public final static String API ="/api";
+    public final static String BASE_URL = BASE + VERSION;
+    public final static String SIGNIN_URL ="/signin";
+
     public final static String USER ="/user";
     public final static String COURSE ="/course";
     public final static String VIDEO ="/video";
@@ -13,6 +18,8 @@ public class ConstantsUtils {
     public final static String ALL_LIST ="/list";
     public final static String ACTIVE ="/active";
 
+
+    public final static String MAX_COURSE_VIEWS ="/maxcoursewiews";
     public final static String COURSE_ACTIVE_BY_LESSON ="/activeCourseByLesson";
     public final static String COURSE_ACTIVE_BY_SUBJECT ="/activeCourseBySubject";
     public final static String COURSE_ACTIVE ="/activeCourse";

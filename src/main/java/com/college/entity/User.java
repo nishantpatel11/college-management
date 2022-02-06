@@ -2,69 +2,53 @@ package com.college.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+@Data
 @Entity
-@Table(name = "user")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class User implements Serializable {
+
+    public enum Role {USER, ADMIN, USER_MANAGER, INSTRUCTOR }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
+
+
+    @NotEmpty
+    @Email
+    private String email;
+
+    @JsonIgnore
+    @ToString.Exclude
+    private String password;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
+//    private Double minGleePerDay;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+//    @ToString.Exclude
+//    private Collection<Glee> glee;
+
+
     private String name;
     private Boolean isInstructor;
     private Boolean active;
 
-    public User() {
-    }
 
 
-    public User(Integer userId, String name, Boolean isInstructor, Boolean active) {
-        this.userId = userId;
-        this.name = name;
-        this.isInstructor = isInstructor;
-        this.active = active;
-    }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getInstructor() {
-        return isInstructor;
-    }
-
-    public void setInstructor(Boolean instructor) {
-        isInstructor = instructor;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", isInstructor=" + isInstructor +
-                ", active=" + active +
-                '}';
-    }
 }

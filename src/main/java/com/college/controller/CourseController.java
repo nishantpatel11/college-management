@@ -3,12 +3,14 @@ package com.college.controller;
 import com.college.entity.Course;
 import com.college.exception.ResourceNotFoundException;
 import com.college.service.CourseService;
+import com.college.service.UserService;
 import com.college.utils.ConstantsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,10 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private UserService userService;
+
 
     @PostMapping
     public ResponseEntity<Course> createCourse(Course course){
@@ -53,5 +59,12 @@ public class CourseController {
     @PutMapping(ConstantsUtils.SUBSCRIBE_COURSE)
     public ResponseEntity<List<Course>> subscribeCourse(List<Course> courses) throws ResourceNotFoundException {
         return new ResponseEntity<List<Course>> (courseService.subscribeCourse(courses), HttpStatus.OK);
+    }
+
+
+    @GetMapping(ConstantsUtils.MAX_COURSE_VIEWS)
+    public ResponseEntity<List<Course>> findMaxViewsOfCourses(Principal principal) throws ResourceNotFoundException {
+        String userName = principal.getName();
+        return new ResponseEntity<List<Course>> (courseService.findMaxViewsOfCourses(), HttpStatus.OK);
     }
 }

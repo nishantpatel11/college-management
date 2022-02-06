@@ -11,7 +11,7 @@ public interface UserService {
 
     User createUser(User user);
     User updateUser(User user);
-    Optional<User> getUser(Integer userId);
+    Optional<User> getUser(Long userId);
     List<User> listUser();
     Map<String,Object> getMostCourseAndVideoView() throws ResourceNotFoundException;
 
